@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Users</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+</head>
+<body class="bg-indigo-950">
+    <div id="wrapper" >
+        <!-- Navbar -->
+        <nav class="sticky top-0 z-10 w-full bg-white py-2 text-neutral-600 shadow-lg hover:text-neutral-700 focus:text-neutral-700">
+            <div class="px-6">
+                <!-- Navigation links -->
+                <ul class="mr-auto flex text-lg font-semibold">
+                    <img src="{{ url_for('static', filename='images/social_logo.jpg') }}" alt="site logo" class="w-12 h-12 hover:animate-pulse">
+                    <li>
+                        <a class="block transition duration-150 ease-in-out hover:text-neutral-400 py-2 px-4" href="/">Home</a>
+                    </li>
+                    <li>
+                        <a class="block transition duration-150 ease-in-out hover:text-neutral-400 py-2 px-4" href="/user/profile">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Main Content -->
+        <div class="w-2/3 mx-auto mt-12">
+            <form action="/user/login" method="post" class="w-2/5 mx-auto  bg-indigo-900 rounded-lg shadow text-white px-8 py-4 space-y-4">
+                <div id="registration_errors">
+                    {% with messages = get_flashed_messages() %}     <!-- declare a variable called messages -->
+                        {% if messages %}
+                            <p class="text-md text-red-400">Login Error:</p>                            <!-- check if there are any messages -->
+                            {% for message in messages %}            <!-- loop through the messages -->
+                                <p class="italic text-sm">{{message}}</p>                   <!-- display each message in a paragraph tag -->
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+                <h2 class="text-xl font-bold leading-tight tracking-tight">Sign In</h2>
+                <div>
+                    <label for="email" class="block mb-2 font-medium text-gray-50">Email</label>
+                    <input type="email" name="email" id="email" placeholder="somethin@site.com" value="{{session['user_login_email']}}" class="bg-gray-50 border border-indigo-900  text-gray-900 rounded-lg px-2 py-1 w-full outline-none">
+                </div>
+                <div>
+                    <label for="password" class="block mb-2 font-medium text-gray-50">Password</label>
+                    <input type="password" name="password" id="password" placeholder="********" class="bg-gray-50 border border-indigo-900  text-gray-900 rounded-lg px-2 py-1 w-full outline-none">
+                </div>
+                <button type="submit"class="rounded border-2 border-neutral-50 px-10 pb-[10px] pt-[12px] text-sm font-medium uppercase text-neutral-50 transition duration-150 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 active:border-neutral-200 active:text-neutral-200">Login</button>
+
+                <p class="font-light text-gray-300 italic">
+                    Need an account? <a href="/user/register" class="font-medium text-indigo-300">Register here</a>
+                </p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- Format for adding images -->
+<!-- <img src="{{ url_for('static', filename='images/img.png') }}"> -->
